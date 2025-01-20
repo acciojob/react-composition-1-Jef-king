@@ -1,34 +1,40 @@
 import React, { useState } from 'react';
 
 export default function App() {
-  const [selectedTab, setSelectedTab] = useState('');
+  const tabs = [
+    { title: 'Tab 1', content: 'This is the content for Tab 1' },
+    { title: 'Tab 2', content: 'This is the content for Tab 2' },
+    { title: 'Tab 3', content: 'This is the content for Tab 3' },
+  ];
 
   return (
-    <div>
-      <Item setSelectedTab={setSelectedTab} />
-      <Result selectedTab={selectedTab} />
-    </div>
+    <>
+      <Tabs tabs={tabs} />
+    </>
   );
 }
 
-function Item({ setSelectedTab }) {
-  const handleClick = (event) => {
-    setSelectedTab(event.target.innerText);
+function Tabs({ tabs }) {
+  const [selectedTab, setSelectedTab] = useState(tabs[0].title);
+
+  const handleClick = (title) => {
+    setSelectedTab(title);
   };
 
   return (
-    <ul>
-      <li onClick={handleClick}>Tab 1</li>
-      <li onClick={handleClick}>Tab 2</li>
-      <li onClick={handleClick}>Tab 3</li>
-    </ul>
+    <div>
+      <ul>
+        {tabs.map((tab) => (
+          <li key={tab.title} onClick={() => handleClick(tab.title)}>
+            {tab.title}
+          </li>
+        ))}
+      </ul>
+      <div>
+        {tabs.map((tab) => (
+          tab.title === selectedTab && <p key={tab.title}>{tab.content}</p>
+        ))}
+      </div>
+    </div>
   );
-}
-
-function Result({ selectedTab }) {
-  if (selectedTab !== '') {
-    return <p>This is the content for {selectedTab}</p>;
-  } else {
-    return null;
-  }
 }
