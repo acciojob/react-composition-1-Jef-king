@@ -25,7 +25,11 @@ function Tabs({ tabs }) {
     <div>
       <ul>
         {tabs.map((tab) => (
-          <li key={tab.title} onClick={() => handleClick(tab.title)}>
+          <li
+            key={tab.title}
+            onClick={() => handleClick(tab.title)}
+            style={{ cursor: 'pointer', fontWeight: tab.title === selectedTab ? 'bold' : 'normal' }}
+          >
             {tab.title}
           </li>
         ))}
